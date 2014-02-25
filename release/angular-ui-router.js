@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.2.7
+ * @version v0.2.7-dev-2014-02-25
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -1484,7 +1484,10 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
               remove: function(element) { animate.leave(element.contents(), element); },
               restore: function(compiled, element) { animate.enter(compiled, element); },
               populate: function(template, element) {
-                var contents = angular.element('<div></div>').html(template).contents();
+                var temp = angular.element('<div style="display: none"></div>');
+                angular.element(document.body).append(temp);
+                var contents = temp.html(template).contents();
+                temp.remove();
                 animate.enter(contents, element);
                 return contents;
               }
